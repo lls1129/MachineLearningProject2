@@ -1,10 +1,10 @@
-# Python 2.7
 import csv
 import math
 import os
 import random
 import numpy as np
 from random import shuffle
+import time
 
 # load data
 
@@ -260,7 +260,9 @@ b = 0.1
 
 z = Adding(y, 1)
 # print repr(sum(z) / 2 / l)
+start = time.clock()
 a_10, b_10 = training(a, b, C, 500)
+end = time.clock()
 # a_10, b_10 = a, b
 number = 0.
 number2 = 0.
@@ -297,3 +299,6 @@ for i in range(ll):
         number2 += 1.
 print "Testing Accuracy is: " + repr(number / ll)
 # print repr(number2 / ll)
+
+print "Running time is: " + repr(end - start)
+print "Wall Clock is: "+ repr(time.asctime(time.localtime(time.time())))
