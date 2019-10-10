@@ -1,3 +1,5 @@
+# python 2.7
+
 import csv
 import math
 import os
@@ -215,7 +217,7 @@ def KKTVerify(x, y, a, b, i):
 
 def MarginKKTVerify(x, y, a, b, i):
     pred_i = Pred(a, b, x, x, i)
-    if (y[i] * pred_i != 1) and (0 < a[i] <C):
+    if (y[i] * pred_i != 1) and (0 < a[i] < C):
         return 0
     else:
         return 1
@@ -260,7 +262,7 @@ def Firstloop(x, y, a, b):
             j = FindJ(x, y, a, b, pred, i)
             # print "Before Updates: (" + repr(a[j]) + ", " + repr(j) + "). "
             a, b = Update(x, y, a, b, i, j)
-            print "Updates: (" + repr(i) + ", " + repr(j) + "). "
+            # print "Updates: (" + repr(i) + ", " + repr(j) + "). "
             counter += 1
     return a, b, counter
 
@@ -355,7 +357,7 @@ path = os.getcwd() + '/wdbc.data'
 data = Loading(path)
 train, test = split(data, 0.8)
 
-train = train[0:100]
+# train = train[0:100]
 
 l = len(train)
 d = len(train[1])
@@ -366,7 +368,7 @@ g = Gram(x)
 
 # print repr(l * 1. / len(data))
 # print repr(l)
-C = 300
+C = 3
 b0 = 0
 W0 = [0.] * d
 a0 = [600.01] * len(y)
@@ -381,20 +383,11 @@ qqq = ppp[:]
 
 
 
-for i in range(l):
-    ppp[i] = Pred(a0, b0, x, x, i)
-    if np.sign(ppp[i]) != np.sign(y[i]): 
-        qqq[i] = "False"
-    else:
-        qqq[i] = "True!"
-print repr(qqq)
-z = Adding(y, 1)
-print repr(sum(z) / 2 / l)
-a_10, b_10, count = training(x, y, a0, b0, 200)
-for i in range(len(y)):
-    if KKTVerify(x, y, a_10, b_10, i) == 1:
-        print "I am OK with KKT, I am: " + repr(i)
-# a_10, b_10 = a, b
+
+# z = Adding(y, 1)
+# print repr(sum(z) / 2 / l)
+a_10, b_10, count = training(x, y, a0, b0, 20)
+
 number = 0.
 number2 = 0.
 for i in range(l): 
@@ -403,18 +396,16 @@ for i in range(l):
         number += 1.
     if np.sign(Pred(a_10, b_10, x, x, i)) != np.sign(y[i]):
         number2 += 1.
-print repr(number / l)
-print repr(number2 / l)
-print repr(count)
-print repr(a_10)
+print "Training Accuracy is: " + repr(number / l)
+# print repr(number2 / l)
+# print repr(count)
+# print repr(a_10)
 # print repr(b_10)
 
 
 
 
 yy = [i[1] for i in test]
-# for i in range(len(yy)):
-#     yy[i] = random.random() - 1
 xx = [i[2:d] for i in test]
 
 ll = len(yy)
@@ -422,12 +413,11 @@ dd = len(test[1])
 number = 0.
 number2 = 0.
 for i in range(ll): 
-    if np.sign(Pred(a_10, b_10, x, xx, i)) == np.sign(yy[i]): 
-        # print repr(Pred(a_50, b_50, i))
+    if np.sign(Pred(a_10, b_10, x, xx, i)) == np.sign(yy[i]):
         number += 1.
     if np.sign(Pred(a_10, b_10, x, xx, i)) != np.sign(yy[i]):
         number2 += 1.
 print "Testing Accuracy is: " + repr(number / ll)
-print repr(number2 / ll)
+# print repr(number2 / ll)
 
 
