@@ -597,6 +597,6 @@ print "Running time is: " + repr(end-start) + " seconds. "
 print "The wallclock is: " + repr(time.asctime(time.localtime(clock)))
 
 
-print "Testing Accuracy is: " + repr(number3 / ll)
+# print "Testing Accuracy is: " + repr(number3 / ll)
 # print repr(number4 / ll)
 
