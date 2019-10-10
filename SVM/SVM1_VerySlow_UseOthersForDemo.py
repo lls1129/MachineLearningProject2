@@ -357,7 +357,7 @@ path = os.getcwd() + '/wdbc.data'
 data = Loading(path)
 train, test = split(data, 0.8)
 
-train = train[0:100]
+# train = train[0:100]
 
 l = len(train)
 d = len(train[1])
